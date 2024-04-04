@@ -1,12 +1,15 @@
 {
-	"name": "wpdevteam/simple-301-redirects",
-	"description": "Create a list of URLs that you would like to 301 redirect to another page or site. Now with wildcard support.",
-	"authors": [
-		{
-			"name": "WPDeveloper",
-			"email": "support@wpdeveloper.com"
-		}
-	],
+    "name": "theathletic/simple-301-redirects",
+    "description": "Create a list of URLs that you would like to 301 redirect to another page or site. Now with wildcard support, forked from https://plugins.svn.wordpress.org/simple-301-redirects/.",
+    "keywords": ["wordpress", "plugin", "301", "redirects"],
+    "homepage": "https://github.com/TheAthletic/simple-301-redirects",
+    "authors": [
+        {
+            "name": "WPDeveloper",
+            "homepage": "https://wordpress.org/plugins/simple-301-redirects/"
+        }
+    ],
+    "type": "wordpress-plugin",
 	"require": {},
 	"autoload": {
 		"psr-4": {
