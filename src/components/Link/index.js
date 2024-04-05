@@ -25,8 +25,8 @@ export default function Link({ request, destination, isNewLink, clickHandler, pr
 	if (!destination) {
 		destination = prefix;
 	}
-	const [localRequest, setLocalRequest] = useState('');
-	const [localDestination, setDestination] = useState('');
+	const [localRequest, setLocalRequest] = useState(request);
+	const [localDestination, setDestination] = useState(destination);
 	useEffect(() => {
 		setLocalRequest(request);
 		setDestination(destination);
