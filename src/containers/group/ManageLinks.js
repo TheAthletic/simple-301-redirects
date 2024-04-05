@@ -113,7 +113,8 @@ export default function ManageLinks(props) {
 						</div>
 						<div className="simple301redirects__managelinks__info__destination">
 							<h4>{__('Destination', 'simple-301-redirects')}</h4>
-							<p>{`absolute example: https://any.other.com/new-page/\nrelative example: /athletic/new-page/`}</p>
+							<p>{`example (external URL): https://any.other.com/new-page/`}</p>
+							<p>{`example (internal path): /athletic/new-page/`}</p>
 						</div>
 					</div>
 				</div>
