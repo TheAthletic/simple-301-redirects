@@ -13,6 +13,8 @@ class Ajax {
         add_action('wp_ajax_simple301redirects/admin/create_new_link', [$this, 'create_new_link']);
         add_action('wp_ajax_simple301redirects/admin/update_link', [$this, 'update_link']);
         add_action('wp_ajax_simple301redirects/admin/delete_link', [$this, 'delete_link']);
+		add_action('wp_ajax_simple301redirects/admin/get_alternate_root_url', [$this, 'get_alternate_root_url']);
+		add_action('wp_ajax_simple301redirects/admin/update_alternate_root_url', [$this, 'update_alternate_root_url']);
     }
     public function get_wildcard()
     {
@@ -21,7 +23,7 @@ class Ajax {
 		wp_send_json_success(get_option('301_redirects_wildcard'));
 		wp_die();
     }
-    public function wildcard() 
+    public function wildcard()
     {
         check_ajax_referer('simple301redirects', 'security');
         if( ! current_user_can( 'manage_options' ) ) wp_die();
@@ -120,5 +122,20 @@ class Ajax {
 		}
         wp_send_json_success($links);
         wp_die();
+    }
+	public function get_alternate_root_url()
+    {
+        check_ajax_referer('simple301redirects', 'security');
+        if( ! current_user_can( 'manage_options' ) ) wp_die();
+        wp_send_json_success(get_option('alternate_root_url'));
+		wp_die();
+    }
+	public function update_alternate_root_url()
+    {
+        check_ajax_referer('simple301redirects', 'security');
+        if( ! current_user_can( 'manage_options' ) ) wp_die();
+        update_option('alternate_root_url', sanitize_text_field($_POST['alternate_root_url']));
+		wp_send_json_success($_POST['alternate_root_url']);
+		wp_die();
     }
 }

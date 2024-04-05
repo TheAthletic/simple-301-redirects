@@ -2,7 +2,7 @@ name: Deploy to WordPress.org
 
 on:
   push:
-    branches: [ trunk ]
+    branches: [trunk]
 
 jobs:
   deploy:

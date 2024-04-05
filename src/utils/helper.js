@@ -1,13 +1,5 @@
 import axios from 'axios';
-export const {
-	s3r_nonce,
-	plugin_root_url,
-	plugin_root_path,
-	site_url,
-	route_path,
-	is_betterlinks_activated,
-	hide_btl_notice,
-} = window.Simple301Redirects;
+export const { s3r_nonce, plugin_root_url, plugin_root_path, site_url, route_path, is_betterlinks_activated, hide_btl_notice } = window.Simple301Redirects;
 
 export const copyToClipboard = (copyText) => {
 	var tempInput = document.createElement('input');
@@ -30,7 +22,7 @@ export const installPlugin = (slug) => {
 		},
 		(error) => {
 			console.log(error);
-		}
+		},
 	);
 };
 
@@ -45,6 +37,6 @@ export const activePlugin = (slug) => {
 		},
 		(error) => {
 			console.log(error);
-		}
+		},
 	);
 };
