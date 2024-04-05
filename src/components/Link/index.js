@@ -44,7 +44,7 @@ export default function Link({ request, destination, isNewLink, clickHandler }) 
 			let param = {
 				[localRequest]: localDestination,
 			};
-			if (request) {
+			if (request && !isNewLink) {
 				param.oldKey = request;
 			}
 			clickHandler(type, param);
