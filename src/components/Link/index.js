@@ -17,8 +17,8 @@ const defaultProps = {
 	isNewLink: false,
 };
 export default function Link({ request, destination, isNewLink, clickHandler }) {
-	const [localRequest, setLocalRequest] = useState('/athletic');
-	const [localDestination, setDestination] = useState('/athletic');
+	const [localRequest, setLocalRequest] = useState('');
+	const [localDestination, setDestination] = useState('');
 	useEffect(() => {
 		setLocalRequest(request);
 		setDestination(destination);

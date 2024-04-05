@@ -121,7 +121,7 @@ export default function ManageLinks(props) {
 				{Object.entries(links).map(([request, destination], index) => (
 					<Link request={request} destination={destination} clickHandler={clickHandler} key={index} />
 				))}
-				<Link isNewLink={true} clickHandler={clickHandler} />
+				<Link request="/athletic" destination="/athletic" isNewLink={true} clickHandler={clickHandler} />
 				<WildCards />
 			</div>
 		</React.Fragment>
