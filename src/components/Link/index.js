@@ -10,13 +10,21 @@ const propTypes = {
 	destination: PropTypes.string,
 	isNewLink: PropTypes.bool,
 	clickHandler: PropTypes.func,
+	prefix: PropTypes.string,
 };
 const defaultProps = {
 	request: '',
 	destination: '',
 	isNewLink: false,
+	prefix: '/athletic',
 };
-export default function Link({ request, destination, isNewLink, clickHandler }) {
+export default function Link({ request, destination, isNewLink, clickHandler, prefix }) {
+	if (!request) {
+		request = prefix;
+	}
+	if (!destination) {
+		destination = prefix;
+	}
 	const [localRequest, setLocalRequest] = useState('');
 	const [localDestination, setDestination] = useState('');
 	useEffect(() => {
@@ -67,7 +75,7 @@ export default function Link({ request, destination, isNewLink, clickHandler }) 
 				<div className="simple301redirects__managelinks__item__inner">
 					<div className="simple301redirects__managelinks__item__request">
 						<input
-							className={showError && localRequest == '' ? 'error' : ''}
+							className={showError && localRequest == prefix ? 'error' : ''}
 							type="text"
 							name="request"
 							value={localRequest}
@@ -81,7 +89,7 @@ export default function Link({ request, destination, isNewLink, clickHandler }) 
 					</div>
 					<div className="simple301redirects__managelinks__item__destination">
 						<textarea
-							className={showError && localDestination == '' ? 'error' : ''}
+							className={showError && localDestination == prefix ? 'error' : ''}
 							value={localDestination}
 							onChange={(e) => setDestination(e.target.value)}
 							onKeyPress={keyPressEventHandler}
