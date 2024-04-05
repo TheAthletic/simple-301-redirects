@@ -20,7 +20,7 @@ export default function Tools(props) {
 				},
 				(error) => {
 					console.log(error);
-				}
+				},
 			);
 		}
 	}, []);

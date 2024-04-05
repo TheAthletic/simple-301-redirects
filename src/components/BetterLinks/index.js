@@ -19,7 +19,7 @@ export default function BetterLinks(props) {
 			},
 			(error) => {
 				console.log(error);
-			}
+			},
 		);
 	};
 	return (
@@ -32,8 +32,16 @@ export default function BetterLinks(props) {
 					<div className="simple301redirects__betterlinks__content">
 						<h3>{__('BetterLinks – Shorten, Track and Manage any URL', 'simple-301-redirects')}</h3>
 						<h4>
-							{__('Install BetterLinks to get the best out of Simple 301 Redirects and get access to more advanced features. Check out the features below', 'simple-301-redirects')}
-							<img width="18" style={{ transform: 'translateY(6px) scale(1.5)', marginLeft: 8 }} src={plugin_root_url + 'assets/images/pointing-down.svg'} alt="logo" />
+							{__(
+								'Install BetterLinks to get the best out of Simple 301 Redirects and get access to more advanced features. Check out the features below',
+								'simple-301-redirects',
+							)}
+							<img
+								width="18"
+								style={{ transform: 'translateY(6px) scale(1.5)', marginLeft: 8 }}
+								src={plugin_root_url + 'assets/images/pointing-down.svg'}
+								alt="logo"
+							/>
 						</h4>
 						<ul>
 							<li>{__('Easy-to-use & Simple Link Shortener', 'simple-301-redirects')}</li>

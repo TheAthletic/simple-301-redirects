@@ -22,7 +22,7 @@ export default function WildCards(props) {
 			},
 			(error) => {
 				console.log(error);
-			}
+			},
 		);
 	}, []);
 	const onChangeHandler = (param) => {
@@ -45,7 +45,7 @@ export default function WildCards(props) {
 			},
 			(error) => {
 				console.log(error);
-			}
+			},
 		);
 	};
 	return (

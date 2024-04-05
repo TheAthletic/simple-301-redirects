@@ -27,7 +27,7 @@ export default function Documentation(props) {
 							<p>
 								{__(
 									'Simple redirects work similar to the format that Apache uses: the request should be relative to your WordPress root. The destination can be either a full URL to any page on the web, or relative to your WordPress root.',
-									'simple-301-redirects'
+									'simple-301-redirects',
 								)}
 							</p>
 							<h5>{__('Example', 'simple-301-redirects')}</h5>
@@ -42,7 +42,12 @@ export default function Documentation(props) {
 							</ul>
 
 							<h4>{__('Wildcards', 'simple-301-redirects')}</h4>
-							<p>{__('Wildcards Redirect will redirect all files within a directory to the same filename in the redirected directory. To use wildcards, put an asterisk (*) after the folder name that you want to redirect.', 'simple-301-redirects')}</p>
+							<p>
+								{__(
+									'Wildcards Redirect will redirect all files within a directory to the same filename in the redirected directory. To use wildcards, put an asterisk (*) after the folder name that you want to redirect.',
+									'simple-301-redirects',
+								)}
+							</p>
 							<h5>{__('Example', 'simple-301-redirects')}</h5>
 							<ul>
 								<li>
@@ -55,7 +60,10 @@ export default function Documentation(props) {
 							</ul>
 
 							<p>
-								{__('You can also use wildcards to redirect all the dynamic files of a certain directory to a same destination URL as well.', 'simple-301-redirects')}
+								{__(
+									'You can also use wildcards to redirect all the dynamic files of a certain directory to a same destination URL as well.',
+									'simple-301-redirects',
+								)}
 							</p>
 							<h5>{__('Example', 'simple-301-redirects')}</h5>
 							<ul>
@@ -69,7 +77,10 @@ export default function Documentation(props) {
 							</ul>
 
 							<p>
-								{__('You can also use the asterisk in the destination to replace whatever it matched in the request if you like. Something like this:', 'simple-301-redirects')}
+								{__(
+									'You can also use the asterisk in the destination to replace whatever it matched in the request if you like. Something like this:',
+									'simple-301-redirects',
+								)}
 							</p>
 							<h5>{__('Example', 'simple-301-redirects')}</h5>
 							<ul>

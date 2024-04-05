@@ -28,7 +28,7 @@ export default function ManageLinks(props) {
 				},
 				(error) => {
 					console.log(error);
-				}
+				},
 			);
 	}, []);
 
@@ -56,7 +56,7 @@ export default function ManageLinks(props) {
 			},
 			(error) => {
 				console.log(error);
-			}
+			},
 		);
 	};
 
@@ -79,7 +79,7 @@ export default function ManageLinks(props) {
 			},
 			(error) => {
 				console.log(error);
-			}
+			},
 		);
 	};
 
@@ -98,7 +98,7 @@ export default function ManageLinks(props) {
 			},
 			(error) => {
 				console.log(error);
-			}
+			},
 		);
 	};
 

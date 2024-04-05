@@ -115,11 +115,7 @@ if (!class_exists("Simple301redirects")) {
 
 			$redirects = get_option('301_redirects');
 			if (!empty($redirects)) {
-				$userrequest = preg_replace(
-					'/^(https|http):\/\/(.*\.)?(theathletic\.com\.*|nytimes\.com\.*)/',
-					'',
-					$this->get_address()
-				);
+				$userrequest = $_SERVER['REQUEST_URI'];
 				$userrequest = ltrim($userrequest);
 				$param = explode('?', $userrequest, 2);
 				$userrequest = current($param);
