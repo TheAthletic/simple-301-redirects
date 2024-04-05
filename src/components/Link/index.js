@@ -48,7 +48,7 @@ export default function Link({ request, destination, isNewLink, clickHandler, pr
 		}
 	};
 	const buttonHandler = (localRequest, localDestination, type) => {
-		if (localRequest && localDestination) {
+		if (localRequest != prefix && localDestination != prefix) {
 			let param = {
 				[localRequest]: localDestination,
 			};
