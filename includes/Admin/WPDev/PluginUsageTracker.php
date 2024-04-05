@@ -437,7 +437,7 @@ class PluginUsageTracker {
         $site_id_key       = "wpins_{$this->plugin_name}_site_id";
         $site_id           = get_option( $site_id_key, false );
         $failed_data       = [];
-        $site_url          = get_bloginfo( 'url' );
+        $site_url          = home_url();
         $original_site_url = get_option( "wpins_{$this->plugin_name}_original_url", false );
 
         if( ( $original_site_url === false || $original_site_url != $site_url ) && version_compare( $body['wpins_version'], '3.0.1', '>=' ) ) {

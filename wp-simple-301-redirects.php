@@ -152,6 +152,7 @@ if (!class_exists("Simple301redirects")) {
 						if (strpos($do_redirect,'/') === 0){
 							$do_redirect = home_url().$do_redirect;
 						}
+						$do_redirect = preg_replace('/\/athletic\/athletic/','/athletic',$do_redirect);
 						header ('HTTP/1.1 301 Moved Permanently');
 						header ('Location: ' . $do_redirect);
 						exit();
