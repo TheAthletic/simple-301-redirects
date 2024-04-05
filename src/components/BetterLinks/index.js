@@ -24,7 +24,7 @@ export default function BetterLinks(props) {
 	};
 	return (
 		<React.Fragment>
-			{!is_betterlinks_activated && !isHideNotice && (
+			{false && !is_betterlinks_activated && !isHideNotice && (
 				<div className="simple301redirects__betterlinks">
 					<button onClick={noticCloseHandler} className="simple301redirects__betterlinks__close__button">
 						<img width="20" src={plugin_root_url + 'assets/images/close.svg'} alt="logo" />

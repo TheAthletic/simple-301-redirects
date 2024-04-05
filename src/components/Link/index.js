@@ -99,7 +99,7 @@ export default function Link({ request, destination, isNewLink, clickHandler }) 
 						<>
 							<CopyLink request={localRequest} />
 							<UpdateLink localClickHandler={localClickHandler} />
-							{!is_betterlinks_activated && (
+							{false && !is_betterlinks_activated && (
 								<div className="simple301redirects__button lock__button s3r-tooltip">
 									<img width="15" src={plugin_root_url + 'assets/images/icon-lock.svg'} alt="local" />
 									<span>{__('3/1 CLICKS', 'simple-301-redirects')}</span>
