@@ -155,6 +155,8 @@ if (!class_exists("Simple301redirects")) {
 						$do_redirect = preg_replace('/\/athletic\/athletic/','/athletic',$do_redirect);
 						header ('HTTP/1.1 301 Moved Permanently');
 						header ('Location: ' . $do_redirect);
+						header ('Cache-Tag: Simple301Redirects');
+						header ('Surrogate-Key: ta:simple301redirects');
 						header ('Cloudflare-CDN-Cache-Control: public, max-age=31536000');
 						header ('Surrogate-Control: public, max-age=31536000');
 						exit();
