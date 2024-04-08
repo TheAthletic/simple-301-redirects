@@ -16,7 +16,7 @@ const defaultProps = {
 	request: '',
 	destination: '',
 	isNewLink: false,
-	prefix: '/athletic',
+	prefix: '/athletic/',
 };
 export default function Link({ request, destination, isNewLink, clickHandler, prefix }) {
 	if (!request) {
@@ -41,14 +41,17 @@ export default function Link({ request, destination, isNewLink, clickHandler, pr
 			if (isDelete === true) {
 				buttonHandler(localRequest, localDestination, type);
 			}
-		} else {
-			buttonHandler(localRequest, localDestination, type);
-			setLocalRequest('');
-			setDestination('');
+		} else if (buttonHandler(localRequest, localDestination, type)) {
+			setLocalRequest(prefix);
+			setDestination(prefix);
 		}
 	};
+	const badLocals = ['', '*'].map((item) => prefix + item);
 	const buttonHandler = (localRequest, localDestination, type) => {
-		if (localRequest != prefix && localDestination != prefix) {
+		console.log('localRequest', localRequest);
+		console.log('localDestination', localDestination);
+		console.log('badLocals', badLocals);
+		if (type == 'delete' || (localRequest.startsWith(prefix) && !badLocals.includes(localRequest) && localDestination)) {
 			let param = {
 				[localRequest]: localDestination,
 			};
@@ -56,13 +59,14 @@ export default function Link({ request, destination, isNewLink, clickHandler, pr
 				param.oldKey = request;
 			}
 			clickHandler(type, param);
-		} else {
-			setShowError(true);
+			return true;
 		}
+		setShowError(true);
+		return false;
 	};
 	const keyPressEventHandler = (event) => {
 		if (event.key === 'Enter') {
-			if (request == '' || destination == '') {
+			if (request == prefix || destination == prefix) {
 				localClickHandler('new');
 			} else {
 				localClickHandler('update');
@@ -75,7 +79,7 @@ export default function Link({ request, destination, isNewLink, clickHandler, pr
 				<div className="simple301redirects__managelinks__item__inner">
 					<div className="simple301redirects__managelinks__item__request">
 						<input
-							className={showError && localRequest == prefix ? 'error' : ''}
+							className={showError && (!localRequest.startsWith(prefix) || badLocals.includes(localRequest)) ? 'error' : ''}
 							type="text"
 							name="request"
 							value={localRequest}
@@ -89,7 +93,7 @@ export default function Link({ request, destination, isNewLink, clickHandler, pr
 					</div>
 					<div className="simple301redirects__managelinks__item__destination">
 						<textarea
-							className={showError && localDestination == prefix ? 'error' : ''}
+							className={showError && !localDestination ? 'error' : ''}
 							value={localDestination}
 							onChange={(e) => setDestination(e.target.value)}
 							onKeyPress={keyPressEventHandler}

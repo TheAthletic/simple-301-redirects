@@ -109,19 +109,29 @@ export default function ManageLinks(props) {
 					<div className="simple301redirects__managelinks__info__inner">
 						<div className="simple301redirects__managelinks__info__request">
 							<h4>{__('Request', 'simple-301-redirects')}</h4>
+							<p>
+								<b>{'Must include "/athletic/"'}</b>
+							</p>
 							<p>{'example: /athletic/old-page/'}</p>
 						</div>
 						<div className="simple301redirects__managelinks__info__destination">
 							<h4>{__('Destination', 'simple-301-redirects')}</h4>
-							<p>{`example (external URL): https://any.other.com/new-page/`}</p>
+							<p>
+								<b>{'Can be internal or external'}</b>
+							</p>
 							<p>{`example (internal path): /athletic/new-page/`}</p>
+							<p>{`example (external URL): https://any.other.com/new-page/`}</p>
 						</div>
 					</div>
 				</div>
-				{Object.entries(links).map(([request, destination], index) => (
-					<Link request={request} destination={destination} clickHandler={clickHandler} key={index} />
-				))}
-				<Link request="/athletic" destination="/athletic" isNewLink={true} clickHandler={clickHandler} />
+				{Object.entries(links)
+					.sort((a, b) => {
+						return a[0].localeCompare(b[0]);
+					})
+					.map(([request, destination], index) => (
+						<Link request={request} destination={destination} clickHandler={clickHandler} key={index} />
+					))}
+				<Link isNewLink={true} clickHandler={clickHandler} />
 				<WildCards />
 			</div>
 		</React.Fragment>
