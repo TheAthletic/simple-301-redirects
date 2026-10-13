@@ -121,11 +121,14 @@ if (!class_exists("Simple301redirects")) {
 				$userrequest = current($param);
 
 				$wildcard = get_option('301_redirects_wildcard');
-				$do_redirect = '';
 
-				// rules are stored with the site sub-path (e.g. /athletic) which a proxy may strip;
-				// try the request as-is, without the prefix, and with the prefix
-				$prefix = untrailingslashit((string) wp_parse_url(home_url(), PHP_URL_PATH)) ?: '/athletic';
+				// The site lives under a sub-path (e.g. /athletic) that a proxy may or may not
+				// strip before the request reaches WordPress, while rules are stored with it.
+				// Try the request as-is, with the prefix removed, and with the prefix added.
+				$prefix = untrailingslashit((string) wp_parse_url(home_url(), PHP_URL_PATH));
+				if ($prefix === '') {
+					$prefix = '/athletic';
+				}
 				$requests = [$userrequest];
 				if (stripos($userrequest, $prefix . '/') === 0 || strcasecmp($userrequest, $prefix) === 0) {
 					$requests[] = substr($userrequest, strlen($prefix)) ?: '/';
@@ -133,44 +136,51 @@ if (!class_exists("Simple301redirects")) {
 					$requests[] = $prefix . '/' . ltrim($userrequest, '/');
 				}
 
-				// compare user request to each 301 stored in the db
-				foreach ($requests as $userrequest)
-				foreach ($redirects as $storedrequest => $destination) {
-					// check if we should use regex search
-					if ($wildcard === 'true' && strpos($storedrequest,'*') !== false) {
-						// wildcard redirect
-
-						// don't allow people to accidentally lock themselves out of admin
-						if ( strpos($userrequest, '/wp-login') !== 0 && strpos($userrequest, '/wp-admin') !== 0 ) {
-							// Make sure it gets all the proper decoding and rtrim action
-							$storedrequest = str_replace('*','(.*)',$storedrequest);
-							$pattern = '/^' . str_replace( '/', '\/', rtrim( $storedrequest, '/' ) ) . '/';
-							$destination = str_replace('*','$1',$destination);
-							$output = preg_replace($pattern, $destination, $userrequest);
-							if ($output !== $userrequest) {
-								// pattern matched, perform redirect
-								$do_redirect = $output;
-							}
-						}
-					}elseif(urldecode(trim($userrequest, '/')) == trim($storedrequest,'/')){
-						// simple comparison redirect
-						$do_redirect = $destination;
-					}
-
-					// redirect. the second condition here prevents redirect loops as a result of wildcards.
-					if ($do_redirect !== '' && trim($do_redirect,'/') !== trim($userrequest,'/')) {
-						// check if destination needs the domain prepended
-						if (strpos($do_redirect,'/') === 0){
-							$do_redirect = home_url().$do_redirect;
-						}
-						$do_redirect = preg_replace('/\/athletic\/athletic/','/athletic',$do_redirect);
-						header ('HTTP/1.1 301 Moved Permanently');
-						header ('Location: ' . $do_redirect);
-						exit();
-					}
+				foreach ($requests as $request) {
+					$this->maybe_redirect($redirects, $wildcard, $request);
 				}
 			}
 		} // end funcion redirect
+
+		private function maybe_redirect($redirects, $wildcard, $userrequest) {
+			$do_redirect = '';
+
+			// compare user request to each 301 stored in the db
+			foreach ($redirects as $storedrequest => $destination) {
+				// check if we should use regex search
+				if ($wildcard === 'true' && strpos($storedrequest,'*') !== false) {
+					// wildcard redirect
+
+					// don't allow people to accidentally lock themselves out of admin
+					if ( strpos($userrequest, '/wp-login') !== 0 && strpos($userrequest, '/wp-admin') !== 0 ) {
+						// Make sure it gets all the proper decoding and rtrim action
+						$storedrequest = str_replace('*','(.*)',$storedrequest);
+						$pattern = '/^' . str_replace( '/', '\/', rtrim( $storedrequest, '/' ) ) . '/';
+						$destination = str_replace('*','$1',$destination);
+						$output = preg_replace($pattern, $destination, $userrequest);
+						if ($output !== $userrequest) {
+							// pattern matched, perform redirect
+							$do_redirect = $output;
+						}
+					}
+				}elseif(urldecode(trim($userrequest, '/')) == trim($storedrequest,'/')){
+					// simple comparison redirect
+					$do_redirect = $destination;
+				}
+
+				// redirect. the second condition here prevents redirect loops as a result of wildcards.
+				if ($do_redirect !== '' && trim($do_redirect,'/') !== trim($userrequest,'/')) {
+					// check if destination needs the domain prepended
+					if (strpos($do_redirect,'/') === 0){
+						$do_redirect = home_url().$do_redirect;
+					}
+					$do_redirect = preg_replace('/\/athletic\/athletic/','/athletic',$do_redirect);
+					header ('HTTP/1.1 301 Moved Permanently');
+					header ('Location: ' . $do_redirect);
+					exit();
+				}
+			}
+		} // end function maybe_redirect
 
 		/**
 		 * getAddress function
