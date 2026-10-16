@@ -121,6 +121,28 @@ if (!class_exists("Simple301redirects")) {
 				$userrequest = current($param);
 
 				$wildcard = get_option('301_redirects_wildcard');
+
+				// The site lives under a sub-path (e.g. /athletic) that a proxy may or may not
+				// strip before the request reaches WordPress, while rules are stored with it.
+				// Try the request as-is, with the prefix removed, and with the prefix added.
+				$prefix = untrailingslashit((string) wp_parse_url(home_url(), PHP_URL_PATH));
+				if ($prefix === '') {
+					$prefix = '/athletic';
+				}
+				$requests = [$userrequest];
+				if (stripos($userrequest, $prefix . '/') === 0 || strcasecmp($userrequest, $prefix) === 0) {
+					$requests[] = substr($userrequest, strlen($prefix)) ?: '/';
+				} else {
+					$requests[] = $prefix . '/' . ltrim($userrequest, '/');
+				}
+
+				foreach ($requests as $request) {
+					$this->maybe_redirect($redirects, $wildcard, $request);
+				}
+			}
+		} // end funcion redirect
+
+		private function maybe_redirect($redirects, $wildcard, $userrequest) {
 				$do_redirect = '';
 
 				// compare user request to each 301 stored in the db
@@ -157,10 +179,8 @@ if (!class_exists("Simple301redirects")) {
 						header ('Location: ' . $do_redirect);
 						exit();
 					}
-					else { unset($redirects); }
 				}
-			}
-		} // end funcion redirect
+		} // end function maybe_redirect
 
 		/**
 		 * getAddress function
